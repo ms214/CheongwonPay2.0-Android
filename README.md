@@ -2,7 +2,7 @@
 This repository for CheongwonPay2.0-Android
 We develop Cheongownpay to use in Cheongwon Festival
 
-Created by [Jeongseop](https://github.com/ParkJeongseop) on 2016.09.22
+Created by [Jeongseop](https://github.com/ParkJeongseop) on 2016.09.22 \\n
 Edited by [Cheongwon_SW_Club](https://github.com/Cheongwon-SW-Club) on 2018.07.13
 
 
