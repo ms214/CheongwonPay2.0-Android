@@ -20,7 +20,7 @@ public class NetworkThread extends HandlerThread {
 
     public static NetworkThread instance = null;
 
-    public Handler networkHandler = null;
+    public static  Handler networkHandler = null;
 
     public Socket socket = null;
     public DataOutputStream dos = null;
@@ -29,7 +29,7 @@ public class NetworkThread extends HandlerThread {
     public static final int OP_LOGIN = 1, OP_PURCHASE = 2, OP_ADD_ITEM = 3, OP_RF_BAL = 4, OP_GetGoodsList = 5, OP_GetRefundList = 6, OP_Refund = 7, OP_ATD = 10, OP_EditGoods = 11, OP_DeleteGoods = 12, OP_EditPW = 13, OP_GetName = 14, OP_UserMatching = 15, OP_PURCHASE_RS_OverLimit = 104, OP_PURCHASE_RS_UserNull = 106, OP_PURCHASE_RS_Success = 105;//통신시 이용하는 명령 코드(OP-Code)를 정수 데이터타입으로 저장한다.
     public static final String OP_GetGoodsListFin = "##";// 통신시 이용하는 명령 코드(OP-Code)를 문자 데이터타입으로 저장한다. 이 코드만 문자형으로 사용하는 이유는 아래에서 DataInputStream할 때 문자형으로 불러오기 때문이다
 
-    public static final String SERVER_IP = "1.239.157.158";
+    public static final String SERVER_IP = "192.168.214.132"; //서버IP준비 String 형식으로 작성해야함(서버호스팅 시 입력)
     public static final int SERVER_PORT = 923;
 
     public static void prepare(){

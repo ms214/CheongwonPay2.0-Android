@@ -25,5 +25,6 @@
         android:layout_height="wrap_content"
         android:text="등록"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/btn_add" />
+        android:id="@+id/btn_add"
+        android:background="@drawable/button_line"/>
 </LinearLayout>

@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.parkjeongseop.cheongwonpay.MainActivity">
+    tools:context="kr.ms214.cheongwonpay20.MainActivity">
 
     <!--바코드인식 Button-->
     <Button
@@ -18,7 +18,9 @@
         android:onClick="onClicked"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="@drawable/button_line"
+        android:layout_marginRight="15dp"/>
 
     <!--바코드인식결과 TextView-->
     <TextView
@@ -85,7 +87,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="onClickedAdd" />
+        android:onClick="onClickedAdd"
+        android:background="@drawable/button_line"
+        android:layout_marginBottom="15dp"/>
 
     <!--부원등록 Button-->
     <Button
@@ -96,7 +100,9 @@
         android:onClick="onClickedUserCheck"
         android:layout_alignTop="@+id/barcode"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/button_line"
+        android:layout_marginTop="15dp"/>
 
     <!--상품목록 ListView-->
     <ListView
