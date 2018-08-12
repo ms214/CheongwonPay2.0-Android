@@ -47,6 +47,11 @@ import me.sudar.zxingorient.ZxingOrientResult;
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_CONTACTS;
 
+/*
+  * setListener
+  *
+ */
+
 public class MainActivity extends AppCompatActivity {
     private TextView result, login_info, balance, Visits, Name;
     private ListView listView;
@@ -71,10 +76,10 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listView);
 
         // MainAcivity의 Handler
-        mHandler = new Handler(){
+        mHandler = new Handler(){ //NetworkThread에서 넘어온 값으로 MainActivity에서 여러기능 처리???
             @Override
             public void handleMessage(Message msg){
-                Bundle extra = new Bundle();
+                //Bundle extra = new Bundle();
                 switch (msg.what) {// OP-Code에 따라 작동
                     case NetworkThread.OP_RF_BAL:// OP_RF_BAL일 때
                         String temp1[] = msg.obj.toString().split(":");// 핸들러로 받아온 정보를 알맞게 쪼개어 배열에 저장한다.
@@ -124,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
                         User_Name = (String)msg.obj;// 데이터를 User_Name에 저장한다.
                         Name.setText("이름 : " + User_Name);// TextView에 이름을 표시한다.
                         break;
+
+                    case NetworkThread.OP_BALANCE_CHARGE:
+
                 }
             }
         };
@@ -299,6 +307,18 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .show();
     }
+    //자금추가 버튼 눌렀을때
+    public void onClickCharge(View view){
+        /**
+         * 새로운 레이아웃창 띄움
+         * 돈 입력 -> 확인/취소 버튼으로 구성
+         * 입력된 돈을 MainActivity로 intent 통해서 가져옴
+         * 그리고 MainAcitivy 내에서 처리
+         * 새로운 레이아웃창 닫음
+         * 충전이 완료되었습니다. Toast Message 띄움
+         * 끝
+         */
+    }
 
     // 디바이스의 뒤로(Back)버튼 눌렀을때
     @Override
@@ -358,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
                 // Otherwise, set the URL to null.
                 Uri.parse("http://host/path"),
                 // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.parkjeongseop.cheongwonpay/http/host/path")
+                Uri.parse("android-app://kr.ms214.cheongwonpay20/http/host/path")
         );
         AppIndex.AppIndexApi.start(client, viewAction);
     }
@@ -377,7 +397,7 @@ public class MainActivity extends AppCompatActivity {
                 // Otherwise, set the URL to null.
                 Uri.parse("http://host/path"),
                 // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.parkjeongseop.cheongwonpay/http/host/path")
+                Uri.parse("android-app://kr.ms214.cheongwonpay20/http/host/path")
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
