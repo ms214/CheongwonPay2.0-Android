@@ -127,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case NetworkThread.OP_GetName:// OP_GetName일 때
                         User_Name = (String)msg.obj;// 데이터를 User_Name에 저장한다.
+                        if(User_Name.equals("GUEST")){
+                            ChangeUserInfo(User ,User_Name);
+                        }
                         Name.setText("이름 : " + User_Name);// TextView에 이름을 표시한다.
                         break;
 
@@ -256,6 +259,16 @@ public class MainActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
+    public void ChangeUserInfo(String UserBR, String name){
+        /**
+         * 새로운 Activity 생성 (ChangeInfoActivity.class와 activity_changeinfo.xml 파일)
+         * UserBR과 name을 넘겨줌
+         *
+         * Activity 에서 받아온 값을 통해 서버에 전달함
+         * 바코드:이름:학교:학년:반:번호
+         */
+    }
+
     // NetworkThread에 Handler를 이용하여 OP-Code와 데이터를 전달한다.
     private void sendNetworkThread(int OP_Code, String Data){
         Message msg = new Message();
@@ -310,8 +323,8 @@ public class MainActivity extends AppCompatActivity {
     //자금추가 버튼 눌렀을때
     public void onClickCharge(View view){
         /**
-         * 새로운 레이아웃창 띄움
-         * 돈 입력 -> 확인/취소 버튼으로 구성
+         * 새로운 레이아웃창 띄움 (ChargeActivity.class 생성/ activity_charge.xml 생성
+         * 레이아웃 내에 돈 입력 -> 확인/취소 버튼으로 구성
          * 입력된 돈을 MainActivity로 intent 통해서 가져옴
          * 그리고 MainAcitivy 내에서 처리
          * 새로운 레이아웃창 닫음
