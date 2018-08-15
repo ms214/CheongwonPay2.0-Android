@@ -127,8 +127,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case NetworkThread.OP_GetName:// OP_GetName일 때
                         User_Name = (String)msg.obj;// 데이터를 User_Name에 저장한다.
-                        if(User_Name.equals("GUEST")){
-                            ChangeUserInfo(User ,User_Name);
+                        if(User_Name.equals("GUEST")) {
+                            ChangeUserInfo(User, User_Name);
                         }
                         Name.setText("이름 : " + User_Name);// TextView에 이름을 표시한다.
                         break;
@@ -267,6 +267,10 @@ public class MainActivity extends AppCompatActivity {
          * Activity 에서 받아온 값을 통해 서버에 전달함
          * 바코드:이름:학교:학년:반:번호
          */
+        Toast.makeText(getApplicationContext(), "정보가 없는 학생입니다. 학생정보를 입력합니다. ", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), ChargeInfoActivity.class);
+        intent.putExtra("barcode", UserBR);
+        intent.putExtra("name", name);
     }
 
     // NetworkThread에 Handler를 이용하여 OP-Code와 데이터를 전달한다.

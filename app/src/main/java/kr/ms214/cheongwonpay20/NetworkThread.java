@@ -220,6 +220,15 @@ public class NetworkThread extends HandlerThread {
                             }catch(IOException e){
                                 e.printStackTrace();
                             }
+                            break;
+                        case OP_CHANGEINFO://정보수정
+                            try{
+                                dos.write(OP_CHANGEINFO);
+                                dos.writeUTF((String)msg.obj);
+                            }catch(IOException e){
+                                e.printStackTrace();
+                            }
+                            break;
                     }
                 }
 

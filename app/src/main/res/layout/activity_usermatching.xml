@@ -57,6 +57,7 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/et_Student_ID"
+        android:hint="학번입력"
         android:layout_below="@+id/radioGroup"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
