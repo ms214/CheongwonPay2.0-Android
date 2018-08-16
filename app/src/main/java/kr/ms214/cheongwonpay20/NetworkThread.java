@@ -213,7 +213,7 @@ public class NetworkThread extends HandlerThread {
                                 e.printStackTrace();
                             }
                             break;
-                        case OP_BALANCE_CHARGE:
+                        case OP_BALANCE_CHARGE://자금 충전
                             try{
                                 dos.write(OP_BALANCE_CHARGE);
                                 dos.writeUTF((String)msg.obj);

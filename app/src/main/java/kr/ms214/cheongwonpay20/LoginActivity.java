@@ -273,7 +273,9 @@ public class LoginActivity extends AppCompatActivity{
             MessageDigest sh = MessageDigest.getInstance("SHA-512");
             sh.update(target.getBytes());
             StringBuffer sb = new StringBuffer();
-            for (byte b : sh.digest()) sb.append(Integer.toHexString(0xff & b));
+            for (byte b : sh.digest()){
+                sb.append(String.format("%02x", 0xff & b));
+            }
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
