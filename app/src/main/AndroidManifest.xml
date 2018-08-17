@@ -30,7 +30,7 @@
         <activity android:name=".UserMatchingActivity">
         </activity>
 
-        <activity android:name=".ChargeInfoActivity">
+        <activity android:name=".ChangeInfoActivity">
 
         </activity>
 

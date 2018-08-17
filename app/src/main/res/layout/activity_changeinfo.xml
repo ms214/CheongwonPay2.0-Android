@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kr.ms214.cheongwonpay20.ChangeInfoActivity"
+    android:orientation="vertical"
+    android:padding="20dp">
+<!--사용자 정보 입력받을 폼-->
+    <TextView
+        android:id="@+id/bartv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="바코드 : "
+        android:textColor="#000000"/>
+
+    <TextView
+        android:id="@+id/nametv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bartv"
+        android:text="이름 : "
+        android:textColor="#000000"/>
+
+    <EditText
+        android:id="@+id/nameET"
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/nametv"/>
+
+    <TextView
+        android:id="@+id/schooltv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nametv"
+        android:text="학교 : "
+        android:textColor="#000000"/>
+
+    <EditText
+        android:id="@+id/schoolET"
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bartv"
+        android:layout_toRightOf="@id/schooltv"/>
+
+    <TextView
+        android:id="@+id/gradetv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/schooltv"
+        android:text="학년 : "
+        android:textColor="#000000"/>
+
+    <EditText
+        android:id="@+id/gradeET"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nametv"
+        android:layout_toRightOf="@id/gradetv"/>
+
+    <TextView
+        android:id="@+id/classtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gradetv"
+        android:text="    반 : "
+        android:textColor="#000000"/>
+
+    <EditText
+        android:id="@+id/classET"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/schooltv"
+        android:layout_toRightOf="@id/classtv"/>
+
+    <TextView
+        android:id="@+id/numberTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/classtv"
+        android:text="번호 : "
+        android:textColor="#000000"/>
+
+    <EditText
+        android:id="@+id/numberET"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gradetv"
+        android:layout_toRightOf="@id/numberTV"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/numberET"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_line"
+            android:layout_weight="1"
+            android:text="제출"/>
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_line"
+            android:layout_weight="1"
+            android:text="취소"/>
+    </LinearLayout>
+
+
+</RelativeLayout>
+
+

@@ -5,25 +5,19 @@ package kr.ms214.cheongwonpay20;
 * Edited by CheongwonSWClub on 2018-07-
 */
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 //import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,20 +26,11 @@ import android.widget.Toast;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.zxing.*;
 
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
-import me.sudar.zxingorient.Barcode;
 import me.sudar.zxingorient.ZxingOrient;
 import me.sudar.zxingorient.ZxingOrientResult;
-
-import static android.Manifest.permission.CAMERA;
-import static android.Manifest.permission.READ_CONTACTS;
 
 /*
   * setListener
@@ -266,9 +251,10 @@ public class MainActivity extends AppCompatActivity {
          * 바코드:이름:학교:학년:반:번호
          */
         Toast.makeText(getApplicationContext(), "정보가 없는 학생입니다. 학생정보를 입력하세요. ", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getApplicationContext(), ChargeInfoActivity.class);
+        Intent intent = new Intent(getApplicationContext(), ChangeInfoActivity.class);
         intent.putExtra("barcode", UserBR);
         startActivity(intent);
+        finish();
     }
 
     // NetworkThread에 Handler를 이용하여 OP-Code와 데이터를 전달한다.
@@ -338,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("userBar", User);
             intent.putExtra("name", User_Name);
             startActivity(intent);
+            finish();
         }else{
             Toast.makeText(getApplicationContext(), "자금추가는 청원SW연구반으로 문의 바랍니다.", Toast.LENGTH_SHORT).show();
         }

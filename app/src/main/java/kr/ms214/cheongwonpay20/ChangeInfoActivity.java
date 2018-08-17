@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ChargeInfoActivity extends Activity {
+public class ChangeInfoActivity extends Activity {
     String Data;
     TextView userBar;
     EditText nameET, schoolET, gradeET, classET, numberET;
@@ -20,7 +20,7 @@ public class ChargeInfoActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chargeinfo);
+        setContentView(R.layout.activity_changeinfo);
         /**
          *  OP Code = OP_CHANGEINFO
          *  처리완료후 Toast메세지를 통해
@@ -31,18 +31,18 @@ public class ChargeInfoActivity extends Activity {
         final String bar = getIntent().getStringExtra("barcode");
 
         //뷰 연결 하기
-        /*userBar = (TextView)findViewById(R.id.);
+        userBar = (TextView)findViewById(R.id.bartv);
 
-        nameET = (EditText)findViewById(R.id.);
-        schoolET = (EditText)findViewById(R.id.);
-        gradeET = (EditText)findViewById(R.id.);
-        classET = (EditText)findViewById(R.id.);
-        numberET = (EditText)findViewById(R.id.);
+        nameET = (EditText)findViewById(R.id.nameET);
+        schoolET = (EditText)findViewById(R.id.schoolET);
+        gradeET = (EditText)findViewById(R.id.gradeET);
+        classET = (EditText)findViewById(R.id.classET);
+        numberET = (EditText)findViewById(R.id.numberET);
 
-        submit = (Button)findViewById(R.id.);
-        cancel = (Button)findViewById(R.id.);*/
+        submit = (Button)findViewById(R.id.submit);
+        cancel = (Button)findViewById(R.id.cancel);
 
-        userBar.setText(bar);
+        userBar.setText("바코드:"+bar);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,13 +54,17 @@ public class ChargeInfoActivity extends Activity {
                 String etClass = classET.getText().toString();
                 String etnumber = numberET.getText().toString();
 
-                Data = bar+":"+etname+":"+etSchool+":"+etGrade+":"+etClass+":"+etnumber;//Data 형식 지정
-                sendNetworkThread(NetworkThread.OP_CHANGEINFO, Data);//NetworkThread로 OP코드와 DATA 보냄
+                if(etname != null && etSchool != null && etGrade != null && etClass != null && etnumber != null){
+                    Data = bar+":"+etname+":"+etSchool+":"+etGrade+":"+etClass+":"+etnumber;//Data 형식 지정
+                    sendNetworkThread(NetworkThread.OP_CHANGEINFO, Data);//NetworkThread로 OP코드와 DATA 보냄
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                Toast.makeText(getApplicationContext(), "회원정보 수정이 완료되었습니다! 바코드 인식 버튼을 동해 다시 바코드를 인식해 주세요!!", Toast.LENGTH_LONG).show();
-                startActivity(intent);
-                finish();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    Toast.makeText(getApplicationContext(), "회원정보 수정이 완료되었습니다! 바코드 인식 버튼을 동해 다시 바코드를 인식해 주세요!!", Toast.LENGTH_LONG).show();
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(getApplicationContext(), "입력하지 않은 칸이 있습니다. 모든 칸을 입력 후 다시 눌러주세요", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
