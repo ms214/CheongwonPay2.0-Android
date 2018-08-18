@@ -10,6 +10,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Created by 재민 on 2018-08-17
+ * Edited by Cheongwon-SW-Club on 2018-08-17*/
+
 public class ChargeActivity extends Activity {
     EditText req_charge;
     TextView bar, User_name;
@@ -52,7 +56,7 @@ public class ChargeActivity extends Activity {
                     sendNetworkThread(NetworkThread.OP_BALANCE_CHARGE, data);
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    Toast.makeText(ChargeActivity.this, "충전이 완료되었습니다. 다시 바코드 인식 바랍니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "충전이 완료되었습니다! 바코드 인식 버튼을 동해 다시 바코드를 인식해 주세요!!", Toast.LENGTH_LONG).show();
                     startActivity(intent);
                     finish();
                 }else{

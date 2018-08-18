@@ -1,6 +1,6 @@
 package kr.ms214.cheongwonpay20;
 
-/*
+/**
  * Created by 정섭 on 2016-09-22
  * Edited by CheongwonSWClub on 2018-07-13
 */
@@ -155,6 +155,7 @@ public class NetworkThread extends HandlerThread {
                             try {
                                 dos.writeInt(OP_GetGoodsList);
                                 String readData = dis.readUTF();
+                                Log.e("READDATA", readData);
                                 while (!readData.equals(OP_GetGoodsListFin)) {
                                     sendMainActivity(OP_GetGoodsList, readData);
                                     readData = dis.readUTF();
@@ -215,7 +216,7 @@ public class NetworkThread extends HandlerThread {
                             break;
                         case OP_BALANCE_CHARGE://자금 충전
                             try{
-                                dos.write(OP_BALANCE_CHARGE);
+                                dos.writeInt(OP_BALANCE_CHARGE);
                                 dos.writeUTF((String)msg.obj);
                             }catch(IOException e){
                                 e.printStackTrace();
@@ -223,8 +224,9 @@ public class NetworkThread extends HandlerThread {
                             break;
                         case OP_CHANGEINFO://정보수정
                             try{
-                                dos.write(OP_CHANGEINFO);
+                                dos.writeInt(OP_CHANGEINFO);
                                 dos.writeUTF((String)msg.obj);
+                                Log.e("OP_CHANGEINFO", (String)msg.obj);
                             }catch(IOException e){
                                 e.printStackTrace();
                             }

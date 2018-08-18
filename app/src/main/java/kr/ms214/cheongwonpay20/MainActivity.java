@@ -1,8 +1,8 @@
 package kr.ms214.cheongwonpay20;
 
-/*
+/**
 * Created by 정섭 on 2016-09-22
-* Edited by CheongwonSWClub on 2018-07-
+* Edited by CheongwonSWClub on 2018-07-13
 */
 
 import android.app.Dialog;
@@ -16,6 +16,7 @@ import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -32,10 +33,6 @@ import java.io.DataOutputStream;
 import me.sudar.zxingorient.ZxingOrient;
 import me.sudar.zxingorient.ZxingOrientResult;
 
-/*
-  * setListener
-  *
- */
 
 public class MainActivity extends AppCompatActivity {
     private TextView result, login_info, balance, Visits, Name;

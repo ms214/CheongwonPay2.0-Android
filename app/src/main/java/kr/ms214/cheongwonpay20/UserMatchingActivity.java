@@ -2,7 +2,6 @@ package kr.ms214.cheongwonpay20;
 
 /**
  * Created by 정섭 on 2016-09-22
- * Edited by CheongwonSWClub on 2018-07-13
 */
 
 import android.content.DialogInterface;

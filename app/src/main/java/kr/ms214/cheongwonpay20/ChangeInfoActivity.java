@@ -10,6 +10,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Created by ms214 on 2018-08-15
+ */
+
 public class ChangeInfoActivity extends Activity {
     String Data;
     TextView userBar;
