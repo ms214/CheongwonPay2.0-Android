@@ -18,6 +18,7 @@ public class ChargeActivity extends Activity {
     EditText req_charge;
     TextView bar, User_name;
     Button submit, cancel;
+    String Data;
 
     //자금추가시 실행되는 액티비티
 
@@ -52,8 +53,8 @@ public class ChargeActivity extends Activity {
                 String reqcharge = req_charge.getText().toString();
 
                 if(reqcharge!=null){
-                    String data = barst+":"+reqcharge;
-                    sendNetworkThread(NetworkThread.OP_BALANCE_CHARGE, data);
+                    Data = barst+":"+reqcharge;
+                    sendNetworkThread(NetworkThread.OP_BALANCE_CHARGE, Data);
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     Toast.makeText(getApplicationContext(), "충전이 완료되었습니다! 바코드 인식 버튼을 동해 다시 바코드를 인식해 주세요!!", Toast.LENGTH_LONG).show();

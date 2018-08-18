@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case NetworkThread.OP_GetGoodsList:// OP_GetGoodsList일 때
-                        String temp[] = ((String)msg.obj).split(":");// 핸들러로 받아온 정보를 알맞게 쪼개어 배열에 저장한다.
+                        Log.e("LOG.E", (String)msg.obj);
+                        String temp[] = msg.obj.toString().split(":");// 핸들러로 받아온 정보를 알맞게 쪼개어 배열에 저장한다.
                         adapter.addItem(temp[1], temp[2], temp[0]);// 받아온 정보로 상품목록에 목록을 추가한다.
                         adapter.notifyDataSetChanged();// 리스트뷰 다시 표시하기.
                         break;
@@ -228,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .show();
 
-                return false;
+                return true;
             }
         });
 
