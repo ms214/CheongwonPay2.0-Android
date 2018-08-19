@@ -16,6 +16,7 @@ import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -316,15 +317,19 @@ public class MainActivity extends AppCompatActivity {
          * 충전이 완료되었습니다. Toast Message 띄움
          * 끝
          */
-        String temp = Club_Name;
-        if(temp.equals("CWSW")){
-            Intent intent = new Intent(getApplicationContext(), ChargeActivity.class);
-            intent.putExtra("userBar", User);
-            intent.putExtra("name", User_Name);
-            startActivity(intent);
-            finish();
-        }else{
-            Toast.makeText(getApplicationContext(), "자금추가는 청원SW연구반으로 문의 바랍니다.", Toast.LENGTH_SHORT).show();
+        if(TextUtils.isEmpty(User_Name)){
+            Toast.makeText(getApplicationContext(), "바코드 인식후 자금추가를 할 수 있습니다.", Toast.LENGTH_SHORT).show();
+        }else {
+            String temp = Club_Name;
+            if (temp.equals("CWSW")) {
+                Intent intent = new Intent(getApplicationContext(), ChargeActivity.class);
+                intent.putExtra("userBar", User);
+                intent.putExtra("name", User_Name);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(getApplicationContext(), "자금추가는 청원SW연구반으로 문의 바랍니다.", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }

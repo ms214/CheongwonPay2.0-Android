@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +21,8 @@ public class ChangeInfoActivity extends Activity {
     String Data;
     TextView userBar;
     EditText nameET, schoolET, gradeET, classET, numberET;
+    Spinner schoolSP;
+    String schoolsp;
     Button submit, cancel;
 
     //사용자 정보를 받을 액티비티
@@ -38,7 +43,8 @@ public class ChangeInfoActivity extends Activity {
         userBar = (TextView)findViewById(R.id.bartv);
 
         nameET = (EditText)findViewById(R.id.nameET);
-        schoolET = (EditText)findViewById(R.id.schoolET);
+        //schoolET = (EditText)findViewById(R.id.schoolET);
+        schoolSP = (Spinner)findViewById(R.id.schoolSP);
         gradeET = (EditText)findViewById(R.id.gradeET);
         classET = (EditText)findViewById(R.id.classET);
         numberET = (EditText)findViewById(R.id.numberET);
@@ -51,15 +57,25 @@ public class ChangeInfoActivity extends Activity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                schoolsp = schoolSP.getSelectedItem().toString();
+                if(schoolsp.equals("학교선택")){
+                    schoolsp=null;
+                }else if(schoolsp.equals("청원고")){
+                    schoolsp="M";
+                }else if(schoolsp.equals("청원여고")){
+                    schoolsp="W";
+                }else if(schoolsp.equals("외부방문자")){
+                    schoolsp="N";
+                }
                 //EditText의 글자 가져오기
                 String etname= nameET.getText().toString();
-                String etSchool = schoolET.getText().toString();
+                //String etSchool = schoolET.getText().toString();
                 String etGrade = gradeET.getText().toString();
                 String etClass = classET.getText().toString();
                 String etnumber = numberET.getText().toString();
 
-                if(etname != null && etSchool != null && etGrade != null && etClass != null && etnumber != null){
-                    Data = bar+":"+etname+":"+etSchool+":"+etGrade+":"+etClass+":"+etnumber;//Data 형식 지정
+                if(!TextUtils.isEmpty(etname) && !TextUtils.isEmpty(schoolsp) && !TextUtils.isEmpty(etGrade) && !TextUtils.isEmpty(etClass) && !TextUtils.isEmpty(etnumber)){
+                    Data = bar+":"+etname+":"+schoolsp+":"+etGrade+":"+etClass+":"+etnumber;//Data 형식 지정
                     sendNetworkThread(NetworkThread.OP_CHANGEINFO, Data);//NetworkThread로 OP코드와 DATA 보냄
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -67,7 +83,7 @@ public class ChangeInfoActivity extends Activity {
                     startActivity(intent);
                     finish();
                 }else{
-                    Toast.makeText(getApplicationContext(), "입력하지 않은 칸이 있습니다. 모든 칸을 입력 후 다시 눌러주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "입력하지 않은 칸이 있습니다. 모든칸을 입력해 주세요!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

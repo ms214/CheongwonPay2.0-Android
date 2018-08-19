@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="school">
+        <item>학교선택</item>
+        <item>청원고</item>
+        <item>청원여고</item>
+        <item>외부방문자</item>
+    </string-array>
+</resources>

@@ -23,20 +23,19 @@
         android:layout_below="@id/bartv"
         android:hint="이름"/>
 
-    <EditText
-        android:id="@+id/schoolET"
-        android:inputType="text"
+    <Spinner
+        android:id="@+id/schoolSP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/nameET"
-        android:hint="학교(M/W/N)"/>
+        android:layout_below ="@id/nameET"
+        android:entries="@array/school" />
 
     <EditText
         android:id="@+id/gradeET"
         android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/schoolET"
+        android:layout_below="@id/schoolSP"
         android:hint="학년"/>
 
     <EditText
