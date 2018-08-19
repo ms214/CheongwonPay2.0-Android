@@ -19,8 +19,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
+                                      <entry key="cropped" value="true" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="D:\Android\Project\CheongwonPay2.0\그림2.png" />
+                                      <entry key="imageAsset" value="D:\Android\Project\CheongwonPay2.0\그림4.png" />
                                     </map>
                                   </option>
                                 </PersistentState>
