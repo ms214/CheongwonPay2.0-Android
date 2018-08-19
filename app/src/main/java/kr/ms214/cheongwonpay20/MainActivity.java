@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog alert = new AlertDialog.Builder( MainActivity.this )// 결제확인창을 Alert창으로 띄운다.
                         .setIcon( R.mipmap.ic_launcher )// 알림창의 아이콘
                         .setTitle( "결제 확인" )// 알림창의 제목
-                        .setMessage( User_Name + "의" + ((ListViewItem)(adapter.getItem(i))).getTitle() + "를 결제하시겠습니까?")// 내용에 학생명과 상품명을 표시하여 내용확인을 하도록 한다.
+                        .setMessage( User_Name + "님의 " + ((ListViewItem)(adapter.getItem(i))).getTitle() + "을(를) 결제하시겠습니까?")// 내용에 학생명과 상품명을 표시하여 내용확인을 하도록 한다.
                         .setPositiveButton( "결제", new DialogInterface.OnClickListener()// "결제"를 눌렀을 때
                         {
                             @Override
@@ -308,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
     //자금추가 버튼 눌렀을때
-    public void onClickCharge(View view){
+    public void tv_Visits(View view){
         /**
          * 새로운 레이아웃창 띄움 (ChargeActivity.class 생성/ activity_charge.xml 생성
          * 레이아웃 내에 돈 입력 -> 확인/취소 버튼으로 구성
@@ -359,6 +359,18 @@ public class MainActivity extends AppCompatActivity {
                 popup.dismiss();// 팝업창을 닫는다.
             }
         });
+    }
+    //환불버튼 눌렀을때...
+    public void onClickRefund(View view){
+        /**
+         * refundActivity로 이동
+         * with 바코드 정보
+         */
+        Intent intent = new Intent(getApplicationContext(), RefundActivity.class);
+        intent.putExtra("bar", User);
+        intent.putExtra("name", User_Name);
+        startActivity(intent);
+        finish();
     }
 
     // 이 Activity로 돌아올 때

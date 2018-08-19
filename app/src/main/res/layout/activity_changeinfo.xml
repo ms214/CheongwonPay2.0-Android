@@ -4,83 +4,143 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="kr.ms214.cheongwonpay20.ChangeInfoActivity"
-    android:orientation="vertical"
-    android:padding="30dp">
-<!--사용자 정보 입력받을 폼-->
+    android:orientation="vertical">
+
+    <!--사용자 정보 입력받을 폼-->
+
     <TextView
+
         android:id="@+id/bartv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
         android:text="바코드 : "
         android:textColor="#000000"
-        android:textSize="20dp"/>
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id='@+id/name'
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이름:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:layout_below="@id/bartv"/>
 
     <EditText
-        android:id="@+id/nameET"
-        android:inputType="text"
+        android:id='@+id/nameET'
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bartv"
-        android:hint="이름"/>
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="40dp"
+        android:inputType="number"
+        android:layout_toEndOf="@id/name"
+        android:layout_below="@+id/bartv"
+        />
 
     <Spinner
         android:id="@+id/schoolSP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below ="@id/nameET"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="30dp"
+        android:layout_below ="@id/name"
         android:entries="@array/school" />
 
-    <EditText
-        android:id="@+id/gradeET"
-        android:inputType="number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/schoolSP"
-        android:hint="학년"/>
 
-    <EditText
-        android:id="@+id/classET"
-        android:inputType="number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/gradeET"
-        android:hint="반"/>
 
-    <EditText
-        android:id="@+id/numberET"
-        android:inputType="number"
+    <LinearLayout
+        android:id="@+id/information"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/classET"
-        android:hint="번호" />
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/schoolSP">
+
+        <TextView
+            android:id="@+id/gradetv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="학년"
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <EditText
+            android:id="@+id/gradeET"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+
+    <TextView
+        android:id='@+id/classnumber'
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="반:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        />
+
+        <EditText
+            android:id='@+id/classET'
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+
+    <TextView
+        android:id='@+id/numbertv'
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="번호:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        />
+
+        <EditText
+            android:id='@+id/numberET'
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/numberET"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp">
+        android:layout_below="@id/information">
 
         <Button
-            android:id="@+id/submit"
+            android:id='@+id/submit'
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_line"
-            android:layout_weight="1"
             android:text="제출"
-            android:layout_marginRight="15dp"/>
-
-        <Button
-            android:id="@+id/cancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:textColor="#80000000"
+            android:textSize="15sp"
+            android:textStyle="bold"
             android:background="@drawable/button_line"
             android:layout_weight="1"
+            android:layout_marginEnd="10dp"/>
+
+        <Button
+            android:id='@+id/cancel'
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="취소"
-            android:layout_marginLeft="15dp"/>
+            android:textColor="#80000000"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:background="@drawable/button_line"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"/>
+
     </LinearLayout>
 
-
 </RelativeLayout>
-
-

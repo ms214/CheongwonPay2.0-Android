@@ -11,4 +11,6 @@
     <string name="error_incorrect_password">암호가 틀렸습니다.</string>
     <string name="error_field_required">이 항목은 필수적입니다.</string>
 
+    <string name="refund_desc">환불할 항목을 아래 리스트에서 터치하세요.</string>
+
 </resources>

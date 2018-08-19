@@ -1,124 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="kr.ms214.cheongwonpay20.MainActivity">
 
-    <!--바코드인식 Button-->
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="바코드 인식"
-        android:id="@+id/button"
-        android:onClick="onClicked"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/button_line"
-        android:layout_marginRight="15dp"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <!--바코드인식결과 TextView-->
     <TextView
+        android:id='@+id/tv_login_info'
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="바코드 : "
-        android:id="@+id/barcode"
-        android:layout_below="@+id/button"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="20dp"
-        android:textIsSelectable="true" />
+        android:text="login info"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_gravity="center_horizontal"
+        />
+        <Button
+            android:id="@+id/inputbarcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="바코드 인식"
+            android:textColor="#80000000"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:background="@drawable/button_line"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            />
 
-    <!--이름 TextView-->
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="이름 :"
-        android:id="@+id/tv_Name"
-        android:layout_below="@+id/barcode"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="20dp" />
-
-    <!--잔액 TextView-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="잔액 : "
-        android:id="@+id/tv_balance"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="20dp"
-        android:layout_below="@+id/tv_Name"/>
-
-    <!--출석체크 결과 TextView-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="출석체크 횟수 :"
-        android:id="@+id/tv_Visits"
-        android:textSize="20dp"
-        android:layout_below="@+id/tv_balance"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <!--동아리정보 TextView-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login Info"
-        android:id="@+id/tv_login_info"
-        android:layout_alignBottom="@+id/button"
-        android:layout_toRightOf="@+id/button"
-        android:layout_toEndOf="@+id/button"
-        android:layout_alignParentTop="true" />
-
-    <!--상품 추가 Button-->
-    <Button
-        android:id="@+id/bt_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/button3"
-        android:background="@drawable/button_line"
-        android:onClick="onClickedAdd"
-        android:text="상품 추가" />
-
-    <!--부원등록 Button-->
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="부원등록"
-        android:id="@+id/button3"
-        android:onClick="onClickedUserCheck"
-        android:layout_alignTop="@+id/barcode"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/button_line"
-        android:layout_marginTop="10dp"/>
-    <Button
-        android:id="@+id/addCharge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="자금추가"
-        android:background="@drawable/button_line"
-        android:layout_below="@id/button3"
-        android:layout_alignParentRight="true"
+        android:id='@+id/barcode'
         android:layout_marginTop="10dp"
-        android:onClick ="onClickCharge"/>
+        android:layout_marginStart="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="바코드:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        />
 
-    <!--상품목록 ListView-->
-    <ListView
+    <TextView
+        android:id='@+id/tv_Name'
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이름:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:id='@+id/textView3'
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="잔액:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:id='@+id/tv_Visits'
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="출석체크 횟수:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        />
+
+    <LinearLayout
+        android:id='@+id/buttonset1'
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/tv_Visits">
+
+        <Button
+            android:id='@+id/btn_add'
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="상품 추가"
+            android:textColor="#80000000"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:background="@drawable/button_line"
+            android:layout_weight="1"
+            android:onClick="onClickedAdd"
+            android:layout_marginEnd="10dp"/>
+
+        <Button
+            android:id='@+id/registerteammate'
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="부원 등록"
+            android:textColor="#80000000"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:background="@drawable/button_line"
+            android:layout_marginStart="10dp"
+            android:onClick="onClickedUserCheck"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id='@+id/buttonset2'
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/buttonset1">
+
+        <Button
+            android:id='@+id/Button1'
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="자금 추가"
+            android:textColor="#80000000"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:background="@drawable/button_line"
+            android:onClick="tv_Visits"
+            android:layout_weight="1"
+            android:layout_marginEnd="10dp"/>
+
+        <Button
+            android:id='@+id/Button2'
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="환불하기"
+            android:textColor="#80000000"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:background="@drawable/button_line"
+            android:layout_marginStart="10dp"
+            android:onClick="onClickRefund"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <ListView
         android:id="@+id/listView"
-        android:layout_below="@+id/tv_Visits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-</RelativeLayout>
+    </LinearLayout>

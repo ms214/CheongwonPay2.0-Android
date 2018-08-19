@@ -7,44 +7,44 @@
 
     <TextView
         android:id='@+id/bartv'
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="바코드:"
         android:textColor="#000000"
-        android:textSize="15dp"/>
+        android:textSize="18sp"/>
 
     <TextView
         android:id='@+id/nametv'
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="이름:"
         android:textColor="#000000"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:layout_below="@id/bartv"/>
 
     <TextView
-        android:id='@+id/reqchargetv'
+        android:id='@+id/Money'
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="충전요청금액:"
         android:textColor="#000000"
-        android:textSize="15dp"
+        android:textSize="18sp"
         android:layout_below="@id/nametv"/>
 
     <EditText
         android:id='@+id/reqchargeET'
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="40dp"
         android:inputType="number"
-        android:layout_toRightOf="@id/reqchargetv"
+        android:layout_toEndOf="@id/Money"
         android:layout_below="@+id/nametv"/>
 
 
@@ -55,28 +55,30 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:orientation="horizontal"
-        android:layout_below="@id/reqchargetv">
+        android:layout_below="@id/Money">
 
     <Button
         android:id='@+id/submit'
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="제출"
-        android:textColor="#000000"
-        android:textSize="15dp"
+        android:textColor="#80000000"
+        android:textSize="15sp"
+        android:textStyle="bold"
         android:background="@drawable/button_line"
         android:layout_weight="1"
-        android:layout_marginRight="15dp"/>
+        android:layout_marginEnd="10dp"/>
 
     <Button
         android:id='@+id/cancel'
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="취소"
-        android:textColor="#000000"
-        android:textSize="15dp"
+        android:textColor="#80000000"
+        android:textSize="15sp"
+        android:textStyle="bold"
         android:background="@drawable/button_line"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="10dp"
         android:layout_weight="1"/>
 
     </LinearLayout>

@@ -70,6 +70,12 @@ public class NetworkThread extends HandlerThread {
         msg.obj = Data;
         MainActivity.mHandler.sendMessage(msg);
     }
+    private void sendRefundActivity(int OP_Code, String Data){
+        Message msg = new Message();
+        msg.what = OP_Code;
+        msg.obj = Data;
+        RefundActivity.mhandler.sendMessage(msg);
+    }
 
     @Override
     public void run() {
@@ -231,6 +237,26 @@ public class NetworkThread extends HandlerThread {
                                 e.printStackTrace();
                             }
                             break;
+                        case OP_GetRefundList:
+                            try{
+                                dos.writeInt(OP_GetRefundList);
+                                String readData = dis.readUTF();
+                                Log.e("READDATA", readData);
+                                while (!readData.equals(OP_GetGoodsListFin)) {
+                                    sendRefundActivity(OP_GetRefundList, readData);
+                                    readData = dis.readUTF();
+                                }
+                            }catch(IOException e){
+                                e.printStackTrace();
+                            }
+                            break;
+                        case OP_Refund:
+                            try{
+                                dos.writeInt(OP_Refund);
+                                dos.writeUTF((String)msg.obj);
+                            }catch(IOException e){
+                                e.printStackTrace();
+                            }
                     }
                 }
 

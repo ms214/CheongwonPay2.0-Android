@@ -1,30 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--상품명 EditText-->
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tf_goods"
-        android:hint="상품명" />
-
-    <!--가격 EditText-->
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/tf_price"
-        android:hint="가격" />
-
-    <!--등록 Button-->
-    <Button
+    <TextView
+        android:id='@+id/textView1'
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="등록"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/btn_add"
-        android:background="@drawable/button_line"/>
-</LinearLayout>
+        android:text="상품명:"
+        android:textColor="#000000"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id='@+id/textView2'
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="가격:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:layout_below="@id/textView1"/>
+
+    <TextView
+        android:id='@+id/textView3'
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="230dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="원"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:layout_below="@id/textView1"
+        android:layout_toEndOf="@id/textView1"/>
+
+
+    <EditText
+        android:id='@+id/tf_goods'
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="40dp"
+        android:inputType="text"
+        android:layout_toRightOf="@id/textView1"
+        />
+
+    <EditText
+        android:id='@+id/tf_price'
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="60dp"
+        android:inputType="number"
+        android:layout_toEndOf="@id/textView2"
+        android:layout_below="@id/tf_goods"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="제출"
+        android:textColor="#80000000"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:background="@drawable/button_line"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_below="@id/tf_price"/>
+
+
+
+
+</RelativeLayout>
