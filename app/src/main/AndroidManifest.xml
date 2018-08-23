@@ -18,8 +18,9 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".LoginActivity"
-            android:screenOrientation="portrait">
+        <activity android:name=".SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -27,18 +28,28 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".UserMatchingActivity">
-        </activity>
-
-        <activity android:name=".ChangeInfoActivity">
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ChargeActivity">
+        <activity android:name=".UserMatchingActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".RefundActivity">
+        <activity android:name=".ChangeInfoActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity android:name=".ChargeActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity android:name=".RefundActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 

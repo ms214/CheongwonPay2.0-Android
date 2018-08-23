@@ -28,7 +28,7 @@ public class NetworkThread extends HandlerThread {
 
     public static final int OP_LOGIN = 1, OP_PURCHASE = 2, OP_ADD_ITEM = 3, OP_RF_BAL = 4, OP_GetGoodsList = 5,
             OP_GetRefundList = 6, OP_Refund = 7, OP_ATD = 10, OP_EditGoods = 11, OP_DeleteGoods = 12, OP_EditPW = 13, OP_GetName = 14,
-            OP_UserMatching = 15, OP_BALANCE_CHARGE=16, OP_CHANGEINFO = 17, OP_PURCHASE_RS_OverLimit = 104, OP_PURCHASE_RS_UserNull = 106, OP_PURCHASE_RS_Success = 105, OP_CHARGE_RS_USERNULL = 107, OP_CHARGE_RS_SUCCESS = 108,
+            OP_UserMatching = 15, OP_BALANCE_CHARGE=16, OP_CHANGEINFO = 17, OP_CLUB_Profit = 18, OP_PAY_BACK = 19, OP_PURCHASE_RS_OverLimit = 104, OP_PURCHASE_RS_UserNull = 106, OP_PURCHASE_RS_Success = 105, OP_CHARGE_RS_USERNULL = 107, OP_CHARGE_RS_SUCCESS = 108,
             OP_EXIT=1110;//통신시 이용하는 명령 코드(OP-Code)를 정수 데이터타입으로 저장한다.
 
     public static final String OP_GetGoodsListFin = "##";// 통신시 이용하는 명령 코드(OP-Code)를 문자 데이터타입으로 저장한다. 이 코드만 문자형으로 사용하는 이유는 아래에서 DataInputStream할 때 문자형으로 불러오기 때문이다
@@ -149,10 +149,11 @@ public class NetworkThread extends HandlerThread {
                                 dos.writeInt(OP_RF_BAL);
                                 dos.writeUTF((String) msg.obj);//바코드전송
 
-                                String result;//잔액
-                                result = dis.readUTF();
-                                Log.d("Test", "result : " + result);
-                                sendMainActivity(OP_RF_BAL, result);
+                                int result;//잔액
+                                result = dis.readInt();
+                                String temp = String.valueOf(result);
+                                Log.d("Test", "result : " + temp);
+                                sendMainActivity(OP_RF_BAL, temp);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -240,8 +241,8 @@ public class NetworkThread extends HandlerThread {
                         case OP_GetRefundList:
                             try{
                                 dos.writeInt(OP_GetRefundList);
+                                dos.writeUTF((String)msg.obj);
                                 String readData = dis.readUTF();
-                                Log.e("READDATA", readData);
                                 while (!readData.equals(OP_GetGoodsListFin)) {
                                     sendRefundActivity(OP_GetRefundList, readData);
                                     readData = dis.readUTF();
@@ -257,6 +258,30 @@ public class NetworkThread extends HandlerThread {
                             }catch(IOException e){
                                 e.printStackTrace();
                             }
+                            break;
+                        case OP_CLUB_Profit:
+                            try{
+                                dos.writeInt(OP_CLUB_Profit);
+                                int readData = dis.readInt();
+                                String readData2 = String.valueOf(readData);
+                                sendMainActivity(OP_CLUB_Profit, readData2);
+                                //동아리 수익금 가져와서 MainActivity로 넘기기
+                            }catch(IOException e){
+                                e.printStackTrace();
+                            }
+                            break;
+
+                        case OP_PAY_BACK:
+                            /**잔액환급요청시 실행
+                             * 사용자바코드 보내기*/
+
+                            try {
+                                dos.writeInt(OP_PAY_BACK);
+                                dos.writeUTF((String) msg.obj);
+                            }catch(IOException e){
+                                e.printStackTrace();
+                            }
+                            break;
                     }
                 }
 

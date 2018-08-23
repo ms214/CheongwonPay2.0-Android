@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kr.ms214.cheongwonpay20.MainActivity">
 
     <TextView
         android:id='@+id/tv_login_info'
@@ -15,6 +18,14 @@
         android:layout_marginRight="40dp"
         android:layout_gravity="center_horizontal"
         />
+    <TextView
+        android:id="@+id/tv_club_profit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="동아리수익금 :"
+        android:textColor="#000000"
+        android:textSize="10dp"
+        android:layout_gravity="center_horizontal"/>
         <Button
             android:id="@+id/inputbarcode"
             android:layout_width="match_parent"
@@ -24,6 +35,7 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:background="@drawable/button_line"
+            android:onClick="onClicked"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
@@ -52,23 +64,12 @@
         />
 
     <TextView
-        android:id='@+id/textView3'
+        android:id='@+id/tv_balance'
         android:layout_marginTop="10dp"
         android:layout_marginStart="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="잔액:"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        />
-
-    <TextView
-        android:id='@+id/tv_Visits'
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="40dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="출석체크 횟수:"
         android:textColor="#000000"
         android:textSize="18sp"
         />
@@ -80,8 +81,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:orientation="horizontal"
-        android:layout_below="@id/tv_Visits">
+        android:orientation="horizontal">
 
         <Button
             android:id='@+id/btn_add'
@@ -138,7 +138,7 @@
             android:id='@+id/Button2'
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="환불하기"
+            android:text="물품환불"
             android:textColor="#80000000"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -148,6 +148,20 @@
             android:layout_weight="1"/>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/payback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_line"
+        android:text="잔액환급"
+        android:textColor="#80000000"
+        android:textSize="15sp"
+        android:textStyle="bold"/>
 
     <ListView
         android:id="@+id/listView"

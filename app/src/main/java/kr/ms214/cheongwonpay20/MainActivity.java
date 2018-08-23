@@ -20,6 +20,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,12 +37,13 @@ import me.sudar.zxingorient.ZxingOrientResult;
 
 
 public class MainActivity extends AppCompatActivity {
-    private TextView result, login_info, balance, Visits, Name;
+    private TextView result, login_info, balance, Visits, Name, Club_Profit;
     private ListView listView;
     private ListViewAdapter adapter;
     private DataOutputStream dos;
+    private Button paybackBtn;
     public static Handler mHandler;
-    public static String CLUB_ID, Club_Name, User, User_Name;
+    public static String CLUB_ID, Club_Name, User, User_Name, Club_ST_Profit;
     private BackPressCloseHandler backPressCloseHandler;
     private GoogleApiClient client;
 
@@ -54,9 +56,16 @@ public class MainActivity extends AppCompatActivity {
         login_info = (TextView) findViewById(R.id.tv_login_info);
         login_info.setText(Club_Name);
         balance = (TextView) findViewById(R.id.tv_balance);
-        Visits = (TextView) findViewById(R.id.tv_Visits);
+        //Visits = (TextView) findViewById(R.id.tv_Visits);
         Name = (TextView) findViewById(R.id.tv_Name);
+        Club_Profit = (TextView)findViewById(R.id.tv_club_profit); //동아리수익금
+        paybackBtn = (Button) findViewById(R.id.payback);
         listView = (ListView) findViewById(R.id.listView);
+
+        User = "";
+        User_Name="";
+
+        sendNetworkThread(NetworkThread.OP_CLUB_Profit);//동아리 수익금 요청
 
         // MainAcivity의 Handler
         mHandler = new Handler(){ //NetworkThread에서 넘어온 값으로 MainActivity에서 여러기능 처리???
@@ -65,14 +74,14 @@ public class MainActivity extends AppCompatActivity {
                 //Bundle extra = new Bundle();
                 switch (msg.what) {// OP-Code에 따라 작동
                     case NetworkThread.OP_RF_BAL:// OP_RF_BAL일 때
-                        String temp1[] = msg.obj.toString().split(":");// 핸들러로 받아온 정보를 알맞게 쪼개어 배열에 저장한다.
-                        balance.setText("잔액 : " + temp1[0]);// TextView에 잔액표시.
-                        Visits.setText("출석체크 : " + temp1[1]);// TextView에 출석체크횟수표시.
+                        String temp1= msg.obj.toString();// 핸들러로 받아온 정보를 알맞게 쪼개어 배열에 저장한다.
+                        balance.setText("잔액 : " + temp1+"원");// TextView에 잔액표시.
+                        /*Visits.setText("출석체크 : " + temp1[1]);// TextView에 출석체크횟수표시.
                         if(Integer.parseInt(temp1[2])==0){// 출석여부가 X일 때
                             Visits.setTextColor(Color.RED);// 잔액 TextView의 색을 빨간색으로 설정.
                         }else{
                             Visits.setTextColor(Color.BLUE);// 잔액 TextView의 색을 파란색으로 설정.
-                        }
+                        }*/ //출석체크 부분 삭--제
                         break;
                     case NetworkThread.OP_GetGoodsList:// OP_GetGoodsList일 때
                         Log.e("LOG.E", (String)msg.obj);
@@ -84,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                         if(Integer.parseInt(msg.obj.toString())==NetworkThread.OP_PURCHASE_RS_Success){// 결제 결과가 성공일 때
                             Toast.makeText(MainActivity.this, "결제 성공", Toast.LENGTH_SHORT).show();// 성공 Toast 알림을 띄운다.
                             sendNetworkThread(NetworkThread.OP_RF_BAL, User);// 출석결과를 다시 요청한다.
+                            sendNetworkThread(NetworkThread.OP_CLUB_Profit);//동아리 수익금을 다시 요청
                         }else{
                             AlertDialog alert = new AlertDialog.Builder( MainActivity.this )// 실패를 Alert창으로 띄운다.
                                     .setIcon( R.mipmap.ic_launcher )
@@ -117,6 +127,11 @@ public class MainActivity extends AppCompatActivity {
                         Name.setText("이름 : " + User_Name);// TextView에 이름을 표시한다.
                         break;
 
+                    case NetworkThread.OP_CLUB_Profit:
+                        Club_ST_Profit = (String)msg.obj;
+                        Club_Profit.setText("동아리수익금 : "+Club_ST_Profit +"원");
+                        break;
+
                 }
             }
         };
@@ -127,33 +142,69 @@ public class MainActivity extends AppCompatActivity {
         // 리스트뷰 참조 및 Adapter달기
         listView.setAdapter(adapter);
 
+        paybackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(TextUtils.isEmpty(User_Name)){
+                    Toast.makeText(MainActivity.this, "바코드 인식 후 잔액환급요청을 할 수 있습니다.", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(Club_Name.equals("CWSW")){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setTitle("잔액환급")
+                                .setMessage("전액 환급 신청하시겠습니까?")
+                                .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //sendNetworkThread(NetworkThread.OP_PAY_BACK, User_Name);
+                                        Toast.makeText(MainActivity.this, "잔액환급요청을 완료하였습니다. 바코드를 다시 한번 인식하여 잔액 확인 후 환급절차 진행해 주세요", Toast.LENGTH_SHORT).show();
+                                        sendNetworkThread(NetworkThread.OP_PAY_BACK, User);
+                                        finish();
+                                        startActivity(getIntent());
+                                    }
+                                })
+                                .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Toast.makeText(MainActivity.this, "환불요청을 취소하였습니다.", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                        builder.show();
+                    }else{
+                        Toast.makeText(MainActivity.this, "잔액환급은 청원SW연구반으로 문의 바랍니다.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
         //상품을 선택했을때 ; 결제
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                final int goods_Num = Integer.parseInt(((ListViewItem)(adapter.getItem(i))).getItemCode());
-                AlertDialog alert = new AlertDialog.Builder( MainActivity.this )// 결제확인창을 Alert창으로 띄운다.
-                        .setIcon( R.mipmap.ic_launcher )// 알림창의 아이콘
-                        .setTitle( "결제 확인" )// 알림창의 제목
-                        .setMessage( User_Name + "님의 " + ((ListViewItem)(adapter.getItem(i))).getTitle() + "을(를) 결제하시겠습니까?")// 내용에 학생명과 상품명을 표시하여 내용확인을 하도록 한다.
-                        .setPositiveButton( "결제", new DialogInterface.OnClickListener()// "결제"를 눌렀을 때
-                        {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which)
+                if(TextUtils.isEmpty(User_Name)){
+                    Toast.makeText(MainActivity.this, "바코드 인식 후 결제할 수 있습니다.", Toast.LENGTH_SHORT).show();
+                }else {
+                    final int goods_Num = Integer.parseInt(((ListViewItem) (adapter.getItem(i))).getItemCode());
+                    AlertDialog alert = new AlertDialog.Builder(MainActivity.this)// 결제확인창을 Alert창으로 띄운다.
+                            .setIcon(R.mipmap.ic_launcher)// 알림창의 아이콘
+                            .setTitle("결제 확인")// 알림창의 제목
+                            .setMessage(User_Name + "님의 " + ((ListViewItem) (adapter.getItem(i))).getTitle() + "을(를) 결제하시겠습니까?")// 내용에 학생명과 상품명을 표시하여 내용확인을 하도록 한다.
+                            .setPositiveButton("결제", new DialogInterface.OnClickListener()// "결제"를 눌렀을 때
                             {
-                                sendNetworkThread(NetworkThread.OP_PURCHASE, User + ":" + goods_Num);// 학생과 상품의 고유번호를 결제요청과 함께 전송한다.
-                                dialog.dismiss();
-                            }
-                        })
-                        .setNegativeButton( "취소", new DialogInterface.OnClickListener()// "취소"를 눌렀을 때
-                        {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which)
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    sendNetworkThread(NetworkThread.OP_PURCHASE, User + ":" + goods_Num);// 학생과 상품의 고유번호를 결제요청과 함께 전송한다.
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setNegativeButton("취소", new DialogInterface.OnClickListener()// "취소"를 눌렀을 때
                             {
-                                dialog.dismiss();// 알림창을 닫는다.
-                            }
-                        })
-                        .show();
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();// 알림창을 닫는다.
+                                }
+                            })
+                            .show();
+                }
             }
 
         });
@@ -283,29 +334,29 @@ public class MainActivity extends AppCompatActivity {
 
     // "부원등록" 버튼을 눌렀을 때
     public void onClickedUserCheck(View view){
-        AlertDialog alert = new AlertDialog.Builder( MainActivity.this )// 부원등록 확인 Alert 알림창을 띄운다.
-                .setIcon( R.mipmap.ic_launcher )// 알림창의 아이콘
-                .setTitle( "부스운영 부원 출석체크 등록" )// 알림창의 제목
-                .setMessage( "정말 '" + User_Name + "'을(를) " + Club_Name +"의 동아리 부스운영자로 등록하시겠습니까? 등록하면 출석인정이 됩니다." )// 내용에 학생명과 동아리명을 표시하여 내용확인을 하도록 한다.
-                .setPositiveButton( "등록", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {// "등록"을 눌렀을 때
-                        sendNetworkThread(NetworkThread.OP_ATD, User);// 부원등록 정보를 보낸다.
-                        sendNetworkThread(NetworkThread.OP_RF_BAL, User);// 출석정보를 다시 받아온다.
-                        dialog.dismiss();
-                    }
-                })
-                .setNegativeButton( "취소", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {// "취소"를 눌렀을 때
-                        dialog.dismiss();// 알림창을 닫는다.
-                    }
-                })
-                .show();
+        if(TextUtils.isEmpty(User_Name)){
+            Toast.makeText(this, "바코드 인식 후 부원으로 등록할 수 있습니다.", Toast.LENGTH_SHORT).show();
+        }else {
+            AlertDialog alert = new AlertDialog.Builder(MainActivity.this)// 부원등록 확인 Alert 알림창을 띄운다.
+                    .setIcon(R.mipmap.ic_launcher)// 알림창의 아이콘
+                    .setTitle("부스운영 부원 출석체크 등록")// 알림창의 제목
+                    .setMessage("정말 '" + User_Name + "'을(를) " + Club_Name + "의 동아리 부스운영자로 등록하시겠습니까? 등록하면 출석인정이 됩니다.")// 내용에 학생명과 동아리명을 표시하여 내용확인을 하도록 한다.
+                    .setPositiveButton("등록", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {// "등록"을 눌렀을 때
+                            sendNetworkThread(NetworkThread.OP_ATD, User);// 부원등록 정보를 보낸다.
+                            sendNetworkThread(NetworkThread.OP_RF_BAL, User);// 출석정보를 다시 받아온다.
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {// "취소"를 눌렀을 때
+                            dialog.dismiss();// 알림창을 닫는다.
+                        }
+                    })
+                    .show();
+        }
     }
     //자금추가 버튼 눌렀을때
     public void tv_Visits(View view){
@@ -366,11 +417,15 @@ public class MainActivity extends AppCompatActivity {
          * refundActivity로 이동
          * with 바코드 정보
          */
-        Intent intent = new Intent(getApplicationContext(), RefundActivity.class);
-        intent.putExtra("bar", User);
-        intent.putExtra("name", User_Name);
-        startActivity(intent);
-        finish();
+        if(TextUtils.isEmpty(User_Name)){
+            Toast.makeText(this, "바코드 인식 후 환불기능을 사용할 수 있습니다.", Toast.LENGTH_SHORT).show();
+        }else {
+            Intent intent = new Intent(getApplicationContext(), RefundActivity.class);
+            intent.putExtra("bar", User);
+            intent.putExtra("name", User_Name);
+            startActivity(intent);
+            finish();
+        }
     }
 
     // 이 Activity로 돌아올 때
