@@ -1,5 +1,11 @@
 # CheongwonPay 2.0 - Android 
+LOGO
+
 ![logo](그림4.png)
+
+SplashImg
+
+![Splash](splash.png)
 
 
 This repository for CheongwonPay2.0-Android
