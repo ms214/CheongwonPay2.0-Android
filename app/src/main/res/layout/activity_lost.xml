@@ -3,31 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="kr.ms214.cheongwonpay20.ChangeInfoActivity"
-    android:orientation="vertical">
+    tools:context="kr.ms214.cheongwonpay20.LostActivity"
+    android:orientation="vertical"
+    android:background="#eee">
 
-    <!--사용자 정보 입력받을 폼-->
+    <!--분실신고 Activity-->
 
     <TextView
-        android:id="@+id/bartv"
-        android:layout_width="wrap_content"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="40dp"
-        android:text="바코드 : "
+        android:textSize="20sp"
+        android:text="타이틀바"
         android:textColor="#000000"
-        android:textSize="18sp"/>
+        android:textStyle="bold"
+        android:background="#2bb22b"
+        />
 
     <TextView
         android:id='@+id/name'
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="이름:"
         android:textColor="#000000"
         android:textSize="18sp"
-        android:layout_below="@id/bartv"/>
+        android:layout_below="@id/title"/>
 
     <EditText
         android:id='@+id/nameET'
@@ -36,7 +38,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="40dp"
         android:layout_toEndOf="@id/name"
-        android:layout_below="@+id/bartv"
+        android:layout_below="@+id/title"
         />
 
     <Spinner
@@ -45,66 +47,77 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginStart="40dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginEnd="30dp"
         android:layout_below ="@id/name"
         android:entries="@array/school" />
 
+    <TextView
+        android:id='@+id/grade2'
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="학년:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:layout_below="@id/schoolSP"/>
 
-
-    <LinearLayout
-        android:id="@+id/information"
+    <EditText
+        android:id='@+id/gradeET'
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:orientation="horizontal"
-        android:layout_below="@+id/schoolSP">
-
-        <TextView
-            android:id="@+id/gradetv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="학년"
-            android:textColor="#000000"
-            android:textSize="18sp"/>
-        <EditText
-            android:id="@+id/gradeET"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:inputType="number"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="40dp"
+        android:inputType="number"
+        android:layout_below="@id/schoolSP"
+        android:layout_toEndOf="@id/grade2"/>
 
     <TextView
-        android:id='@+id/classnumber'
+        android:id='@+id/classnum'
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="반:"
         android:textColor="#000000"
         android:textSize="18sp"
-        />
+        android:layout_below="@id/grade2"/>
 
-        <EditText
-            android:id='@+id/classET'
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:inputType="number" />
+    <EditText
+        android:id='@+id/classET'
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="40dp"
+        android:inputType="number"
+        android:layout_below="@id/grade2"
+        android:layout_toEndOf="@id/classnum"/>
 
     <TextView
-        android:id='@+id/numbertv'
+        android:id='@+id/number'
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="번호:"
         android:textColor="#000000"
         android:textSize="18sp"
-        />
+        android:layout_below="@id/classnum"/>
 
-        <EditText
-            android:id='@+id/numberET'
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:inputType="number"/>
+    <EditText
+        android:id='@+id/numberET'
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="40dp"
+        android:inputType="number"
+        android:layout_below="@id/classnum"
+        android:layout_toEndOf="@id/number"/>
 
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -113,7 +126,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:orientation="horizontal"
-        android:layout_below="@id/information">
+        android:layout_below="@id/numberET">
 
         <Button
             android:id='@+id/submit'

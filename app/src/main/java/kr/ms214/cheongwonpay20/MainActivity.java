@@ -41,9 +41,10 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private ListViewAdapter adapter;
     private DataOutputStream dos;
-    private Button paybackBtn;
+    private Button paybackBtn, lostBtn;
     public static Handler mHandler;
-    public static String CLUB_ID, Club_Name, User, User_Name, Club_ST_Profit;
+    public static String CLUB_ID, Club_Name, User, User_Name, Club_ST_Profit, BalanceST;
+    public static int User_Lost;
     private BackPressCloseHandler backPressCloseHandler;
     private GoogleApiClient client;
 
@@ -60,10 +61,12 @@ public class MainActivity extends AppCompatActivity {
         Name = (TextView) findViewById(R.id.tv_Name);
         Club_Profit = (TextView)findViewById(R.id.tv_club_profit); //동아리수익금
         paybackBtn = (Button) findViewById(R.id.payback);
+        lostBtn = (Button)findViewById(R.id.lostBtn);
         listView = (ListView) findViewById(R.id.listView);
 
         User = "";
         User_Name="";
+        BalanceST="";
 
         sendNetworkThread(NetworkThread.OP_CLUB_Profit);//동아리 수익금 요청
 
@@ -74,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
                 //Bundle extra = new Bundle();
                 switch (msg.what) {// OP-Code에 따라 작동
                     case NetworkThread.OP_RF_BAL:// OP_RF_BAL일 때
-                        String temp1= msg.obj.toString();// 핸들러로 받아온 정보를 알맞게 쪼개어 배열에 저장한다.
-                        balance.setText("잔액 : " + temp1+"원");// TextView에 잔액표시.
+                        BalanceST= msg.obj.toString();// 핸들러로 받아온 정보를 알맞게 쪼개어 배열에 저장한다.
+                        balance.setText("잔액 : " + BalanceST+"원");// TextView에 잔액표시.
                         /*Visits.setText("출석체크 : " + temp1[1]);// TextView에 출석체크횟수표시.
                         if(Integer.parseInt(temp1[2])==0){// 출석여부가 X일 때
                             Visits.setTextColor(Color.RED);// 잔액 TextView의 색을 빨간색으로 설정.
@@ -121,10 +124,25 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case NetworkThread.OP_GetName:// OP_GetName일 때
                         User_Name = (String)msg.obj;// 데이터를 User_Name에 저장한다.
-                        if(User_Name.equals("GUEST")) {
-                            ChangeUserInfo(User);
+                        String usersplit[] = User_Name.split(":");
+                        User_Lost = Integer.valueOf(usersplit[0]);
+                        User_Name = usersplit[1];
+
+                        if(User_Lost == 1){
+                            Toast.makeText(MainActivity.this, "본 학생증은 분실요쳥된 학생증 입니다. 사용할 수 없습니다.", Toast.LENGTH_LONG).show();
+                            User = "";
+                            User_Name="";
+                            BalanceST="";
+                            result.setText("바코드 : " + User);
+                            Name.setText("이름 : " + User_Name);
+                            balance.setText("잔액 : " + BalanceST);
+                        }else{
+
+                            if (User_Name.equals("GUEST")) {
+                                ChangeUserInfo(User);
+                            }
+                            Name.setText("이름 : " + User_Name);// TextView에 이름을 표시한다.
                         }
-                        Name.setText("이름 : " + User_Name);// TextView에 이름을 표시한다.
                         break;
 
                     case NetworkThread.OP_CLUB_Profit:
@@ -132,6 +150,9 @@ public class MainActivity extends AppCompatActivity {
                         Club_Profit.setText("동아리수익금 : "+Club_ST_Profit +"원");
                         break;
 
+                    case NetworkThread.OP_EXIT:
+                        Toast.makeText(MainActivity.this, "서버 연결이 끊겼습니다. 앱을 재 실행 해 주시기 바랍니다.", Toast.LENGTH_SHORT).show();
+                        break;
                 }
             }
         };
@@ -141,6 +162,35 @@ public class MainActivity extends AppCompatActivity {
 
         // 리스트뷰 참조 및 Adapter달기
         listView.setAdapter(adapter);
+
+        lostBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String [] item = {"분실 신고", "분실 신고취소"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("분실 신고")
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setItems(item, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(item[which].equals("분실 신고")){
+                                    Intent intent = new Intent(getApplicationContext(), LostActivity.class);
+                                    intent.putExtra("title", "분실 신고");
+                                    startActivity(intent);
+
+                                }else if(item[which].equals("분실 신고취소")){
+                                    Intent intent = new Intent(getApplicationContext(), LostCancelActivity.class);
+                                    intent.putExtra("title", "분실 신고 취소");
+                                    startActivity(intent);
+                                }
+                            }
+                        });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
         paybackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -436,7 +486,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (scanResult != null && scanResult.getContents() != null) {// "scanResult"가 null이 아니고, "scanResult"의 내용이 null이 아닐 때
             User = scanResult.getContents().toString();// "scanResult"의 내용을 "User"에 문자 데이터타입으로 변환후 저장한다.
-            Toast.makeText(this, "바코드 : " + User, Toast.LENGTH_LONG).show();// 바코드정보 Toast 알림을 띄운다.
+            //Toast.makeText(this, "바코드 : " + User, Toast.LENGTH_LONG).show();// 바코드정보 Toast 알림을 띄운다.
             result.setText("바코드 : " + User);// TextView에 바코드정보 표시.
             sendNetworkThread(NetworkThread.OP_RF_BAL, User);// 출석결과를 요청한다.
             sendNetworkThread(NetworkThread.OP_GetName, User);// 바코드에 일치하는 학생명을 요청한다.

@@ -105,9 +105,7 @@ public class LoginActivity extends AppCompatActivity{
                     edit.commit();
                     if (id.equals("관리자")) {// 관리자계정일 때
                         // 임시학생증 발급 Activity로 이동한다.
-                        Intent intent1 = new Intent(getApplicationContext(), UserMatchingActivity.class);
-                        startActivity(intent1);
-                        finish();
+                        Toast.makeText(LoginActivity.this, "잘못입력하셨습니다.", Toast.LENGTH_SHORT).show();
                     }else{
                         if (password.equals("12345678")) {// 기본 설정된 패스워드(12345678)일 경우
                             AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);

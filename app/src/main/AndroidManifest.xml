@@ -33,11 +33,6 @@
 
         </activity>
 
-        <activity android:name=".UserMatchingActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-
         <activity android:name=".ChangeInfoActivity"
             android:screenOrientation="portrait">
 
@@ -50,6 +45,14 @@
 
         <activity android:name=".RefundActivity"
             android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity android:name=".LostActivity">
+
+        </activity>
+
+        <activity android:name=".LostCancelActivity">
 
         </activity>
 
