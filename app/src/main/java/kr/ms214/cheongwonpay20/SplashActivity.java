@@ -20,7 +20,7 @@ public class SplashActivity extends Activity {
             System.out.println(e.getMessage());
         }
 
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
         finish();
 

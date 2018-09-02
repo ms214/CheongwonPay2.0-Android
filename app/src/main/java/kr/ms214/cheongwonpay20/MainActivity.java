@@ -37,13 +37,13 @@ import me.sudar.zxingorient.ZxingOrientResult;
 
 
 public class MainActivity extends AppCompatActivity {
-    private TextView result, login_info, balance, Visits, Name, Club_Profit;
+    private TextView result, login_info, balance, Name, Club_Profit, count_tv;
     private ListView listView;
     private ListViewAdapter adapter;
     private DataOutputStream dos;
     private Button paybackBtn, lostBtn;
     public static Handler mHandler;
-    public static String CLUB_ID, Club_Name, User, User_Name, Club_ST_Profit, BalanceST;
+    public static String CLUB_ID, Club_Name, User, User_Name, Club_ST_Profit, BalanceST, countST;
     public static int User_Lost;
     private BackPressCloseHandler backPressCloseHandler;
     private GoogleApiClient client;
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         login_info = (TextView) findViewById(R.id.tv_login_info);
         login_info.setText(Club_Name);
         balance = (TextView) findViewById(R.id.tv_balance);
+        count_tv = (TextView) findViewById(R.id.count_tv);
         //Visits = (TextView) findViewById(R.id.tv_Visits);
         Name = (TextView) findViewById(R.id.tv_Name);
         Club_Profit = (TextView)findViewById(R.id.tv_club_profit); //동아리수익금
@@ -77,14 +78,12 @@ public class MainActivity extends AppCompatActivity {
                 //Bundle extra = new Bundle();
                 switch (msg.what) {// OP-Code에 따라 작동
                     case NetworkThread.OP_RF_BAL:// OP_RF_BAL일 때
-                        BalanceST= msg.obj.toString();// 핸들러로 받아온 정보를 알맞게 쪼개어 배열에 저장한다.
+                        String  temprf[] = msg.obj.toString().split(":");// 핸들러로 받아온 정보를 알맞게 쪼개어 배열에 저장한다.
+                        BalanceST= temprf[0];
+                        countST = temprf[1];
                         balance.setText("잔액 : " + BalanceST+"원");// TextView에 잔액표시.
-                        /*Visits.setText("출석체크 : " + temp1[1]);// TextView에 출석체크횟수표시.
-                        if(Integer.parseInt(temp1[2])==0){// 출석여부가 X일 때
-                            Visits.setTextColor(Color.RED);// 잔액 TextView의 색을 빨간색으로 설정.
-                        }else{
-                            Visits.setTextColor(Color.BLUE);// 잔액 TextView의 색을 파란색으로 설정.
-                        }*/ //출석체크 부분 삭--제
+                        count_tv.setText("출석횟수:" +countST);
+
                         break;
                     case NetworkThread.OP_GetGoodsList:// OP_GetGoodsList일 때
                         Log.e("LOG.E", (String)msg.obj);
@@ -201,15 +200,19 @@ public class MainActivity extends AppCompatActivity {
                     if(Club_Name.equals("CWSW")){
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         builder.setTitle("잔액환급")
-                                .setMessage("전액 환급 신청하시겠습니까?")
+                                .setMessage("현재 잔액은 "+BalanceST+"원입니다.  \n정말 전액 환급 신청하시겠습니까?")
                                 .setPositiveButton("예", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         //sendNetworkThread(NetworkThread.OP_PAY_BACK, User_Name);
-                                        Toast.makeText(MainActivity.this, "잔액환급요청을 완료하였습니다. 바코드를 다시 한번 인식하여 잔액 확인 후 환급절차 진행해 주세요", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MainActivity.this, BalanceST+"원 환급요청을 완료하였습니다. \n바코드를 다시 한번 인식하여 잔액 확인 후 환급절차 진행해 주세요", Toast.LENGTH_LONG).show();
                                         sendNetworkThread(NetworkThread.OP_PAY_BACK, User);
-                                        finish();
-                                        startActivity(getIntent());
+                                        User = "";
+                                        User_Name="";
+                                        BalanceST="";
+                                        result.setText("바코드 : " + User);
+                                        Name.setText("이름 : " + User_Name);
+                                        balance.setText("잔액 : " + BalanceST);
                                     }
                                 })
                                 .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
@@ -390,7 +393,7 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog alert = new AlertDialog.Builder(MainActivity.this)// 부원등록 확인 Alert 알림창을 띄운다.
                     .setIcon(R.mipmap.ic_launcher)// 알림창의 아이콘
                     .setTitle("부스운영 부원 출석체크 등록")// 알림창의 제목
-                    .setMessage("정말 '" + User_Name + "'을(를) " + Club_Name + "의 동아리 부스운영자로 등록하시겠습니까? 등록하면 출석인정이 됩니다.")// 내용에 학생명과 동아리명을 표시하여 내용확인을 하도록 한다.
+                    .setMessage("정말 '" + User_Name + "'을(를) '" + Club_Name + "'의 동아리 부스운영자로 등록하시겠습니까? 등록하면 '"+Club_Name+"'의 출석인정이 됩니다.")// 내용에 학생명과 동아리명을 표시하여 내용확인을 하도록 한다.
                     .setPositiveButton("등록", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {// "등록"을 눌렀을 때

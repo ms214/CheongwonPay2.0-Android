@@ -33,7 +33,7 @@ public class NetworkThread extends HandlerThread {
 
     public static final String OP_GetGoodsListFin = "##";// 통신시 이용하는 명령 코드(OP-Code)를 문자 데이터타입으로 저장한다. 이 코드만 문자형으로 사용하는 이유는 아래에서 DataInputStream할 때 문자형으로 불러오기 때문이다
 
-    public static final String SERVER_IP = "211.207.150.105"; //서버IP준비 String 형식으로 작성해야함(서버호스팅 시 입력)
+    public static final String SERVER_IP = ""; /**서버아이피 삭제후 github commit 요함*/
     public static final int SERVER_PORT = 923;
 //    boolean result = false;
 
@@ -181,11 +181,10 @@ public class NetworkThread extends HandlerThread {
                                         dos.writeInt(OP_RF_BAL);
                                         dos.writeUTF((String) msg.obj);//바코드전송
 
-                                        int result;//잔액
-                                        result = dis.readInt();
-                                        String temp = String.valueOf(result);
-                                        Log.d("Test", "result : " + temp);
-                                        sendMainActivity(OP_RF_BAL, temp);
+                                        String result;//잔액:출석수
+                                        result = dis.readUTF();
+                                        Log.d("Test", "result : " + result);
+                                        sendMainActivity(OP_RF_BAL, result);
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                         quit();
