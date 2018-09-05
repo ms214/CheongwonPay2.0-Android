@@ -21,6 +21,8 @@ Created by [Jeongseop](https://github.com/ParkJeongseop) on 2016.09.22 / Edited 
 | 2.0 b3| Add RefundSystem |
 | 2.0 b4| Add PayBack(잔액환급)System |
 | 2.0 b5| Add Lost and Found System |
+|2.0 b6 | fix AutoLogin Error|
+|2.0 | Release |
 
 ----------------------------English--------------------------
 
