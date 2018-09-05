@@ -83,7 +83,7 @@
             android:id="@+id/count_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="출석횟수:"
+            android:text="출석횟수 : "
             android:textColor="#000000"
             android:textSize="18sp"
             android:layout_weight="1"/>
@@ -171,17 +171,19 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:orientation="horizontal">
+
         <Button
             android:id="@+id/payback"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:background="@drawable/button_line"
-            android:text="잔액환급"
+            android:text="잔액 환급"
             android:textColor="#80000000"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:layout_weight="1"/>
+            android:layout_marginEnd="10dp"/>
 
         <Button
             android:id="@+id/lostBtn"

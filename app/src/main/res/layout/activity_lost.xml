@@ -129,10 +129,10 @@
         android:layout_below="@id/numberET">
 
         <Button
-            android:id='@+id/submit'
+            android:id='@+id/cancel'
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="제출"
+            android:text="취소"
             android:textColor="#80000000"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -141,10 +141,10 @@
             android:layout_marginEnd="10dp"/>
 
         <Button
-            android:id='@+id/cancel'
+            android:id='@+id/submit'
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="취소"
+            android:text="제출"
             android:textColor="#80000000"
             android:textSize="15sp"
             android:textStyle="bold"

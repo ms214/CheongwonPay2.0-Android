@@ -16,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import me.sudar.zxingorient.ZxingOrient;
 import me.sudar.zxingorient.ZxingOrientResult;
 
@@ -76,6 +78,8 @@ public class LostCancelActivity extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Toast.makeText(LostCancelActivity.this, "분실신고취소를 하지 않았습니다.", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
                                 finish();
                             }
                         });
@@ -88,6 +92,8 @@ public class LostCancelActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(LostCancelActivity.this, "취소하였습니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -121,6 +127,21 @@ public class LostCancelActivity extends Activity {
                             }
                         break;*/
 
+                    case NetworkThread.OP_EXIT:
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LostCancelActivity.this);
+                        builder.setIcon(R.mipmap.ic_launcher)
+                                .setTitle("Error!!!!")
+                                .setMessage("서버간 연결 문제로 연결이 종료되었습니다. 앱 종료후 다시 실행 해 주세요!")
+                                .setNeutralButton("예", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        System.exit(0);
+                                    }
+                                });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        break;
                     case NetworkThread.OP_CANCEL_LOST:
                         /**
                          * 0일때 정상
@@ -130,11 +151,15 @@ public class LostCancelActivity extends Activity {
                         String result = (String)msg.obj;
                         if(result.equals("0")){
                             Toast.makeText(LostCancelActivity.this, "바코드 : "+UserBar+"\n 해당 바코드의 학생증 분실 신고를 취소하였습니다.", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
                             finish();
                         }else if(result.equals("-1")){
                             Toast.makeText(LostCancelActivity.this, "입력하신 바코드에 해당하는 학생정보가 없습니다. \n다시 한번 확인해 주십시오", Toast.LENGTH_LONG).show();
                         }else if(result.equals("1")){
                             Toast.makeText(LostCancelActivity.this, "바코드 : "+UserBar+"\n분실신고가 되지 않은 학생정보입니다.", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
                             finish();
                         }
                         break;

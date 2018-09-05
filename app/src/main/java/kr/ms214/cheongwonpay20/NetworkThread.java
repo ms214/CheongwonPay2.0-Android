@@ -33,7 +33,7 @@ public class NetworkThread extends HandlerThread {
 
     public static final String OP_GetGoodsListFin = "##";// 통신시 이용하는 명령 코드(OP-Code)를 문자 데이터타입으로 저장한다. 이 코드만 문자형으로 사용하는 이유는 아래에서 DataInputStream할 때 문자형으로 불러오기 때문이다
 
-    public static final String SERVER_IP = ""; /**서버아이피 삭제후 github commit 요함*/
+    public static final String SERVER_IP = "1.234.20.109"; /**서버아이피 삭제후 github commit 요함*/
     public static final int SERVER_PORT = 923;
 //    boolean result = false;
 
@@ -152,6 +152,7 @@ public class NetworkThread extends HandlerThread {
                                     break;
 
                                 case OP_PURCHASE:
+                                    //결제
                                     try {
                                         dos.writeInt(OP_PURCHASE);
                                         dos.writeUTF((String) msg.obj);
@@ -159,7 +160,8 @@ public class NetworkThread extends HandlerThread {
                                         sendMainActivity(OP_PURCHASE, String.valueOf(result));
                                     } catch (IOException e) {
                                         e.printStackTrace();
-                                        quit();
+                                        //quit();
+                                        sendMainActivity(OP_EXIT, "종료");
                                         break;
                                     }
                                     break;
@@ -170,7 +172,8 @@ public class NetworkThread extends HandlerThread {
                                         dos.writeUTF((String) msg.obj);//goods:price
                                     } catch (IOException e) {
                                         e.printStackTrace();
-                                        quit();
+                                        sendMainActivity(OP_EXIT, "종료");
+                                        //quit();
                                         break;
                                     }
 
@@ -367,7 +370,9 @@ public class NetworkThread extends HandlerThread {
                                         sendLostCancelActivity(OP_CANCEL_LOST, readData2);
                                     } catch (IOException e) {
                                         e.printStackTrace();
-                                        quit();
+                                        //quit();
+                                        //sendLostCancelActivity(OP_EXIT, "종료");
+                                        sendMainActivity(OP_EXIT, "종료");
                                         break;
                                     }
                                     break;
@@ -378,12 +383,7 @@ public class NetworkThread extends HandlerThread {
                 }
 
             };
-            Looper.loop();
-            try {
-                socket.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
+        Looper.loop();
         /*result = socket.isConnected();
         if(!result){
             sendMainActivity(OP_EXIT, "data");

@@ -36,7 +36,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="paddingPercent" value="15" />
+                                                <entry key="paddingPercent" value="-10" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -49,8 +49,7 @@
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="cropped" value="true" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="C:\Users\minso\Desktop\splash.png" />
-                                      <entry key="outputName" value="splash" />
+                                      <entry key="imageAsset" value="C:\Users\minso\Desktop\청원pay이미지\청원pay 로고2.png" />
                                     </map>
                                   </option>
                                 </PersistentState>

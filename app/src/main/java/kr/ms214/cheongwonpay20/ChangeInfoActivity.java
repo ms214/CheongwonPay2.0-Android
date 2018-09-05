@@ -83,7 +83,7 @@ public class ChangeInfoActivity extends Activity {
                     startActivity(intent);
                     finish();
                 }else{
-                    Toast.makeText(getApplicationContext(), "입력하지 않은 칸이 있습니다. 모든칸을 입력해 주세요!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "입력하지 않은 항목이 있습니다. 모든 항목을 입력해 주세요!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

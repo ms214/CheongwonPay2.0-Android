@@ -6,26 +6,25 @@
     tools:context="kr.ms214.cheongwonpay20.RefundActivity">
 
     <TextView
-        android:id="@+id/userbar"
+        android:id='@+id/userbar'
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
         android:text="바코드:"
-        android:textSize="30dp"
-        android:layout_margin="20dp"
-        android:textColor="#000000"/>
+        android:textColor="#000000"
+        android:textSize="18sp"/>
+
     <TextView
-        android:id="@+id/username"
+        android:id='@+id/username'
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/userbar"
         android:text="이름:"
-        android:textSize="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:textColor="#000000"/>
+        android:textColor="#000000"
+        android:textSize="18dp"
+        android:layout_below="@id/userbar"/>
 
     <TextView
         android:id="@+id/desc"

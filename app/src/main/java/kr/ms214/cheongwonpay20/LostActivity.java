@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -34,7 +35,6 @@ public class LostActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_lost);
 
         /**
@@ -72,8 +72,8 @@ public class LostActivity extends Activity {
                 String grade = gradeET.getText().toString();
                 String classet = classET.getText().toString();
                 String number = numberET.getText().toString();
-                if(name.equals(null) || school.equals(null) || grade.equals(null) || classet.equals(null) || number.equals(null)){
-                    Toast.makeText(LostActivity.this, "입력하지 않은 값이 있습니다.", Toast.LENGTH_SHORT).show();
+                if(TextUtils.isEmpty(name) || TextUtils.isEmpty(school) || TextUtils.isEmpty(grade) || TextUtils.isEmpty(classet) || TextUtils.isEmpty(number)){
+                    Toast.makeText(LostActivity.this, "입력하지 않은 항목이 있습니다.", Toast.LENGTH_SHORT).show();
                 }else{
                     if(title.equals("분실 신고")){
                         /**OP코드 = OP_LOST_REPORT*/
@@ -91,6 +91,8 @@ public class LostActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(LostActivity.this, "취소하였습니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -103,21 +105,17 @@ public class LostActivity extends Activity {
                             String result = (String)msg.obj;
                             if(result.equals("0")){
                                 Toast.makeText(LostActivity.this, "해당하는 정보의 학생의 학생증을 분실신고처리 완료하였습니다.", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
                                 finish();
                             }else if(result.equals("-1")){
                                 Toast.makeText(LostActivity.this, "입력하신 정보에 해당하는 학생정보가 없습니다. \n다시 한번 확인해 주십시오", Toast.LENGTH_LONG).show();
                             }else if(result.equals("1")){
                                 Toast.makeText(LostActivity.this, "이미 분실신고 된 학생정보입니다.", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
                                 finish();
                             }
-                        break;
-
-                    case NetworkThread.OP_CANCEL_LOST:
-                        /**
-                         * 0일때 정상
-                         * 1일때 분실되지 않은 학생정보
-                         * -1 없는 정보
-                         * */
                         break;
                 }
             }

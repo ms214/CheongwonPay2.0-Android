@@ -90,7 +90,7 @@ public class RefundActivity extends Activity {
                 android.support.v7.app.AlertDialog alert = new android.support.v7.app.AlertDialog.Builder( RefundActivity.this )// 실패를 Alert창으로 띄운다.
                         .setIcon( R.mipmap.ic_launcher )
                         .setTitle( "환불하기" )// 알림창의 제목
-                        .setMessage( UserName+"님의 상품"+Goods_Name+"을(를) 환불하시겠습니까?")// 알림창의 내용
+                        .setMessage( UserName+"님의 상품 "+Goods_Name+"을(를) 환불하시겠습니까?")// 알림창의 내용
                         .setPositiveButton( "환불", new DialogInterface.OnClickListener()// "확인"을 눌렀을 때
                         {
                             @Override
@@ -128,6 +128,7 @@ public class RefundActivity extends Activity {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         Toast.makeText(getApplicationContext(), "메인으로 돌아갑니다.", Toast.LENGTH_SHORT).show();
         startActivity(intent);
+        intent.putExtra("refundBar", UserBar);
         finish();
     }
 }

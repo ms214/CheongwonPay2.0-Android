@@ -69,6 +69,14 @@ public class MainActivity extends AppCompatActivity {
         User_Name="";
         BalanceST="";
 
+        String bar = getIntent().getStringExtra("chargeBar");
+        if(!TextUtils.isEmpty(bar)){
+            User=bar;
+            sendNetworkThread(NetworkThread.OP_GetName, bar);
+            sendNetworkThread(NetworkThread.OP_RF_BAL, bar);
+            result.setText("바코드 : "+bar);
+        }
+
         sendNetworkThread(NetworkThread.OP_CLUB_Profit);//동아리 수익금 요청
 
         // MainAcivity의 Handler
@@ -132,9 +140,11 @@ public class MainActivity extends AppCompatActivity {
                             User = "";
                             User_Name="";
                             BalanceST="";
+                            countST="";
                             result.setText("바코드 : " + User);
                             Name.setText("이름 : " + User_Name);
                             balance.setText("잔액 : " + BalanceST);
+                            count_tv.setText("출석체크 : "+countST);
                         }else{
 
                             if (User_Name.equals("GUEST")) {
@@ -150,7 +160,13 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case NetworkThread.OP_EXIT:
-                        Toast.makeText(MainActivity.this, "서버 연결이 끊겼습니다. 앱을 재 실행 해 주시기 바랍니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "서버 연결이 끊겼습니다. 완전종료후 실행 부탁드립니다.", Toast.LENGTH_LONG).show();
+                        finish();
+                        System.exit(0);
+                        break;
+
+                    case 10000:
+                        //콜백 위치
                         break;
                 }
             }
@@ -177,11 +193,13 @@ public class MainActivity extends AppCompatActivity {
                                     Intent intent = new Intent(getApplicationContext(), LostActivity.class);
                                     intent.putExtra("title", "분실 신고");
                                     startActivity(intent);
+                                    finish();
 
                                 }else if(item[which].equals("분실 신고취소")){
                                     Intent intent = new Intent(getApplicationContext(), LostCancelActivity.class);
                                     intent.putExtra("title", "분실 신고 취소");
                                     startActivity(intent);
+                                    finish();
                                 }
                             }
                         });
@@ -210,9 +228,11 @@ public class MainActivity extends AppCompatActivity {
                                         User = "";
                                         User_Name="";
                                         BalanceST="";
+                                        countST = "";
                                         result.setText("바코드 : " + User);
                                         Name.setText("이름 : " + User_Name);
                                         balance.setText("잔액 : " + BalanceST);
+                                        count_tv.setText("출석체크 : "+countST);
                                     }
                                 })
                                 .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
@@ -373,6 +393,10 @@ public class MainActivity extends AppCompatActivity {
         Message msg = new Message();
         msg.what = OP_Code;
         NetworkThread.instance.networkHandler.sendMessage(msg);
+    }
+
+    public void callback(int OP_CODE, String Data){
+
     }
 
     // "바코드 인식" 버튼 눌렀을때

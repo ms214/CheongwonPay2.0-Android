@@ -101,11 +101,12 @@ public class LoginActivity extends AppCompatActivity{
                     SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
                     SharedPreferences.Editor edit = pref.edit();
                     edit.putString("ID", id);
-                    edit.putString("PW", encryptSHA512(password));
+                    edit.putString("PW", password);
+                    Log.e("sha512", encryptSHA512(password));
                     edit.commit();
-                    if (id.equals("관리자")) {// 관리자계정일 때
+                    if (id.equals("관리자") || id.equals("noClub")) {// 관리자계정일 때
                         // 임시학생증 발급 Activity로 이동한다.
-                        Toast.makeText(LoginActivity.this, "잘못입력하셨습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "잘못된 계정입니다.", Toast.LENGTH_SHORT).show();
                     }else{
                         if (password.equals("12345678")) {// 기본 설정된 패스워드(12345678)일 경우
                             AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
@@ -118,7 +119,7 @@ public class LoginActivity extends AppCompatActivity{
                             alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     String InputPW = PW.getText().toString();
-                                    if (!TextUtils.isEmpty(InputPW) && !isPasswordValid(InputPW)) {
+                                    if (TextUtils.isEmpty(InputPW) && !isPasswordValid(InputPW)) {
                                         Toast.makeText(LoginActivity.this, "5자이상으로 설정해주세요", Toast.LENGTH_LONG).show();
                                     }else {
                                         // NetworkThread에 Handler를 이용하여 변경할 패스워드와 함께 패스워드변경요청을 전달한다..
@@ -128,7 +129,8 @@ public class LoginActivity extends AppCompatActivity{
                                         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
                                         SharedPreferences.Editor edit = pref.edit();
                                         edit.putString("ID", id);
-                                        edit.putString("PW", encryptSHA512(InputPW));
+                                        edit.putString("PW", InputPW);
+                                        Log.e("sha512", encryptSHA512(InputPW));
                                         edit.commit();
                                         finish();
                                         startActivity(intent);
@@ -144,6 +146,7 @@ public class LoginActivity extends AppCompatActivity{
                     }
                 } else {
                     mPasswordView.setError(getString(R.string.error_incorrect_password));
+                    Log.e("sha512", encryptSHA512(password));
                     mPasswordView.requestFocus();
                 }
 
@@ -254,7 +257,7 @@ public class LoginActivity extends AppCompatActivity{
         if (id.length() == 0 || password.length() == 0) return;// id이나 password의 길이가 0이면 함수 반환한다.
 
         // NetworkThread에 Handler를 이용하여 ID,패스워드와 함께 로그인요청을 전달한다.
-        sendNetworkThread(NetworkThread.OP_LOGIN, id + ":" + password);
+        sendNetworkThread(NetworkThread.OP_LOGIN, id + ":" + encryptSHA512(password));
     }
 
     // NetworkThread에 Handler를 이용하여 OP-Code와 데이터를 전달한다.

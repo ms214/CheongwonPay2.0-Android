@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,12 +53,13 @@ public class ChargeActivity extends Activity {
 
                 String reqcharge = req_charge.getText().toString();
 
-                if(reqcharge!=null){
+                if(!TextUtils.isEmpty(reqcharge)){
                     Data = barst+":"+reqcharge;
                     sendNetworkThread(NetworkThread.OP_BALANCE_CHARGE, Data);
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     Toast.makeText(getApplicationContext(), "충전이 완료되었습니다! 바코드 인식 버튼을 동해 다시 바코드를 인식해 주세요!!", Toast.LENGTH_LONG).show();
+                    intent.putExtra("chargeBar", barst);
                     startActivity(intent);
                     finish();
                 }else{
